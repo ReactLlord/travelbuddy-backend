@@ -25,13 +25,13 @@ const bcrypt = require('bcrypt');
   }
  })
 
- 
+
 //login
 router.post("/login", async(req,res) => {
   try {
     //find user
-    const user = await User.findOne({username:req.body.username});
-    if (!user) return res.status(400).json("Wrong username or password!");
+    const user = await User.findOne({email:req.body.email});
+    if (!user) return res.status(400).json("User not found");
 
     //validate password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
